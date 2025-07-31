@@ -20,25 +20,25 @@ export default function Navbar() {
               to="/" 
               className="text-white hover:text-red-400 transition-colors"
             >
-              Home
+              Početna
             </Link>
             <Link 
               to="/gallery" 
               className="text-white hover:text-red-400 transition-colors"
             >
-              Gallery
+              Galerija
             </Link>
             <Link 
               to="/booking" 
               className="text-white hover:text-red-400 transition-colors"
             >
-              Booking
+              Zakaži termin
             </Link>
             <Link 
               to="/contact" 
               className="text-white hover:text-red-400 transition-colors"
             >
-              Contact
+              Kontakt
             </Link>
           </div>
 
