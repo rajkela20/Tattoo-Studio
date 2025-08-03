@@ -12,7 +12,7 @@ export default function Home() {
   {/* Section Header */}
   <div className="text-center mb-16">
     <h2 className="text-4xl font-bold text-white mb-4">
-      <span className="text-red-600"></span> Our Services
+      <span className="text-red-600"></span> Naše Usluge
     </h2>
     <p className="text-xl text-gray-300 max-w-3xl mx-auto">
       Where art meets skin—tailored to your vision, crafted with precision.
@@ -23,20 +23,20 @@ export default function Home() {
   <div className="grid md:grid-cols-3 gap-6">
     {[
       {
-        title: "Custom Tattoos",
-        description: "Unique designs created just for you",
+        title: "Prilagođene Tetovaže",
+        description: "Jedinstveni dizajni napravljeni samo za tebe  ",
         icon: <SparklesIcon className="h-6 w-6 text-white" />,
         bgClass: "bg-gray-900"
       },
       {
-        title: "Cover Ups",
-        description: "Transform old tattoos into new art",
+        title: "Prekrivanje starih tetovaža",
+        description: "Stare tetovaže pretvaramo u nove",
         icon: <ArrowPathIcon className="h-6 w-6 text-white" />,
         bgClass: "bg-gray-800"
       },
       {
-        title: "Consultations",
-        description: "Free 30-minute design consultations",
+        title: "Konsultacije",
+        description: "Besplatne 30-minutne konsultacije o dizajnu",
         icon: <ChatBubbleLeftRightIcon className="h-6 w-6 text-white" />,
         bgClass: "bg-gray-900"
       }
@@ -80,15 +80,15 @@ export default function Home() {
               />
             </div>
             <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold mb-6">Meet Your Artist</h2>
+              <h2 className="text-3xl font-bold mb-6">Upoznajte svog umetnika</h2>
               <p className="text-lg mb-6 text-gray-300">
-                With over 30 years of experience in fine art and tattooing.
+                Sa više od 30 godina iskustva tetoviranju
               </p>
               <div className="space-y-4">
                 {[
-                  "Certified Professional Artist",
-                  "Sterile, Single-Use Needles",
-                  "Comfortable Studio Environment"
+                  "Certifikovani profesionalni umetnik",
+                  "Radimo sa sterilnim priborom za jednokratnu upotrebu",
+                  "Studio opremljen za maksimalnu udobnost"
                 ].map((item, i) => (
                   <div key={i} className="flex items-center">
                     <span className="text-red-400 mr-2">✓</span>
@@ -104,15 +104,15 @@ export default function Home() {
       {/* Call to Action */}
       <section className="py-16 px-4 bg-red-600 text-white text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6">Ready for Your New Tattoo?</h2>
+          <h2 className="text-3xl font-bold mb-6">Spremni za novu tetovažu?</h2>
           <p className="text-xl mb-8">
-            Book a consultation today and let's create something amazing together.
+              Zakažite konsultaciju već danas.
           </p>
           <a 
             href="/booking" 
             className="inline-block bg-white text-red-600 px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
           >
-            Book Now
+            Zakaži termin
           </a>
         </div>
       </section>
