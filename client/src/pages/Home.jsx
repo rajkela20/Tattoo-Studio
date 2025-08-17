@@ -69,37 +69,46 @@ export default function Home() {
 </section>
 
       {/* Artist Spotlight */}
-      <section className="py-16 bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="md:flex items-center gap-12">
-            <div className="md:w-1/2 mb-8 md:mb-0">
-              <img 
-                src="/artist.jpg" 
-                alt="Tattoo Artist" 
-                className="rounded-lg shadow-xl w-full h-auto max-h-[500px] object-cover"
-              />
-            </div>
-            <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold mb-6">Upoznajte svog umetnika</h2>
-              <p className="text-lg mb-6 text-gray-300">
-                Sa više od 30 godina iskustva tetoviranju
-              </p>
-              <div className="space-y-4">
-                {[
-                  "Certifikovani profesionalni umetnik",
-                  "Radimo sa sterilnim priborom za jednokratnu upotrebu",
-                  "Studio opremljen za maksimalnu udobnost"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center">
-                    <span className="text-red-400 mr-2">✓</span>
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+     <section className="py-16 bg-gray-900 text-white">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="md:flex items-center gap-12">
+      {/* Image Container - Enhanced Styling */}
+      <div className="md:w-1/2 mb-8 md:mb-0 flex justify-center">
+        <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
+          <img 
+            src="/artist.jpg" 
+            alt="Tattoo Artist" 
+            className="rounded-full border-4 border-red-600 shadow-2xl w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-300"
+          />
+          {/* Optional decorative element */}
+          <div className="absolute -inset-4 rounded-full border-2 border-gray-500 opacity-20 pointer-events-none"></div>
         </div>
-      </section>
+      </div>
+
+      {/* Text Content */}
+      <div className="md:w-1/2">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif tracking-tight">
+          Upoznajte svog umetnika
+        </h2>
+        <p className="text-lg md:text-xl mb-8 text-gray-300 leading-relaxed">
+          Sa više od 30 godina iskustva u tetoviranju i savršenim osećajem za detalje.
+        </p>
+        <div className="space-y-4">
+          {[
+            "Certifikovani profesionalni umetnik",
+            "Radimo sa sterilnim priborom za jednokratnu upotrebu",
+            "Studio opremljen za maksimalnu udobnost"
+          ].map((item, i) => (
+            <div key={i} className="flex items-center group">
+              <span className="text-red-400 mr-3 text-xl transition-all group-hover:text-red-500">✓</span>
+              <span className="text-gray-200 group-hover:text-white transition-colors">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Call to Action */}
       <section className="py-16 px-4 bg-red-600 text-white text-center">
