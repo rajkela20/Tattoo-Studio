@@ -4,22 +4,18 @@ import { SparklesIcon, ArrowPathIcon, ChatBubbleLeftRightIcon } from '@heroicons
 export default function Home() {
   return (
     <div className="bg-gray-50">
-      {/* Hero Section */}
+      {/*hero kog nema lol*/}
       <Hero />
-
-      {/* Dark-themed Services Section */}
 <section className="py-16 px-4 max-w-8xl mx-auto bg-gray-950">
-  {/* Section Header */}
   <div className="text-center mb-16">
     <h2 className="text-4xl font-bold text-white mb-4">
       <span className="text-red-600"></span> Naše Usluge
     </h2>
     <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-      Where art meets skin—tailored to your vision, crafted with precision.
+      Where art meets skin tailored to your vision, crafted with precision.
     </p>
   </div>
 
-  {/* Services Cards */}
   <div className="grid md:grid-cols-3 gap-6">
     {[
       {
@@ -68,11 +64,9 @@ export default function Home() {
   </div>
 </section>
 
-      {/* Artist Spotlight */}
      <section className="py-16 bg-gray-900 text-white">
   <div className="max-w-7xl mx-auto px-4">
     <div className="md:flex items-center gap-12">
-      {/* Image Container - Enhanced Styling */}
       <div className="md:w-1/2 mb-8 md:mb-0 flex justify-center">
         <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
           <img 
@@ -80,12 +74,10 @@ export default function Home() {
             alt="Tattoo Artist" 
             className="rounded-full border-4 border-red-600 shadow-2xl w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-300"
           />
-          {/* Optional decorative element */}
           <div className="absolute -inset-4 rounded-full border-2 border-gray-500 opacity-20 pointer-events-none"></div>
         </div>
       </div>
 
-      {/* Text Content */}
       <div className="md:w-1/2">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif tracking-tight">
           Upoznajte svog umetnika
@@ -110,7 +102,6 @@ export default function Home() {
   </div>
 </section>
 
-      {/* Call to Action */}
       <section className="py-16 px-4 bg-red-600 text-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-6">Spremni za novu tetovažu?</h2>

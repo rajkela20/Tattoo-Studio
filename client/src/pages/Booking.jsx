@@ -57,12 +57,12 @@ const BookingPage = () => {
   const validateForm = () => {
     const newErrors = {};
     
-    // Validate all fields
+    //potvrda da li je sve popunjeno 
     if (!formData.clientName.trim()) newErrors.clientName = 'Name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
     if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
     
-    const dateError = validateDate(formData.date);
+    const dateError = validateDate(formData.date); //provera datuma da li je vazeci
     if (dateError) newErrors.date = dateError;
     
     if (!formData.time) newErrors.time = 'Time is required';
@@ -81,7 +81,7 @@ const BookingPage = () => {
     setIsSubmitting(true);
     
    try {
-      // Firestore submission
+      //salje firestoru
       await addDoc(collection(db, "appointments"), {
         clientName: formData.clientName,
         email: formData.email,
@@ -122,15 +122,15 @@ const BookingPage = () => {
         <Navbar />
         <div className="pt-20 pb-10">
           <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md text-center">
-            <div className="text-green-600 text-2xl font-bold mb-4">Booking Confirmed!</div>
+            <div className="text-green-600 text-2xl font-bold mb-4">Uspešno ste zakazali termin!</div>
             <p className="text-gray-700 mb-6">
-              Thank you for your appointment request. We'll contact you shortly to confirm details.
+              Hvala vam na poverenju. Naš tim će vas u najkraćem roku kontaktirati radi potvrde svih detalja.
             </p>
             <button
               onClick={() => setSubmitSuccess(false)}
               className="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition duration-200"
             >
-              Book Another Appointment
+              Zakaži Još Termina
             </button>
           </div>
         </div>

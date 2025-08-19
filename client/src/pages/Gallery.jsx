@@ -33,17 +33,15 @@ const Gallery = () => {
     { id: 12, src: tet12, category: 'Watercolor' },
     { id: 13, src: tet13, category: 'Watercolor' },
     { id: 14, src: tet14, category: 'Watercolor' },
-    { id: 15, src: tet15, category: 'Watercolor' },
+    { id: 15, src: tet15, category: 'Watercolor' }, {/* ovo treba da se promeni kada tata kaze koja je koja vrsta tetovaze!!! */}
   ];
 
   return (
     <section className="bg-gray-950 py-16 px-4">
-      {/* Gallery Header */}
       <div className="max-w-7xl mx-auto text-center mb-12">
         <h2 className="text-4xl font-bold text-white mb-4">Naši Radovi</h2>
       </div>
-
-      {/* Filter Buttons */}
+      
       <div className="flex flex-wrap justify-center gap-3 mb-12 max-w-4xl mx-auto">
         {['Sve', 'Sleeves', 'Blackwork', 'Realism', 'Minimalist', 'Geometric', 'Watercolor'].map((cat) => (
           <button
@@ -55,7 +53,7 @@ const Gallery = () => {
         ))}
       </div>
 
-      {/* Image Grid */}
+        {/* grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {tattooImages.map((img) => (
           <div 
@@ -80,7 +78,6 @@ const Gallery = () => {
         ))}
       </div>
 
-      {/* Lightbox Modal */}
       {selectedImg && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
           <button 

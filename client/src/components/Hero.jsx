@@ -3,32 +3,27 @@ import { Link } from 'react-router-dom';
 export default function Hero() {
   return (
     <div className="relative bg-black text-white h-screen min-h-[600px] flex items-center overflow-hidden">
-      {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/hero-bg.jpg" // Your image path
+          src="/hero-bg.jpg" 
           alt="Tattoo studio interior"
           className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
       </div>
 
-      {/* Content Container */}
       <div className="relative z-10 container mx-auto px-6">
         <div className="max-w-2xl mx-auto text-center">
-          {/* Studio Name */}
           <h1 className="text-5xl md:text-7xl font-bold mb-2 font-serif tracking-tight">
             INKMASTERS
           </h1>
           
-          {/* Tagline */}
           <div className="w-24 h-1 bg-red-600 mx-auto my-6"></div>
           <h2 className="text-xl md:text-2xl font-medium text-gray-300 mb-8">
             CUSTOM TATTOO STUDIO
           </h2>
 
-          {/* Contact Info - Now in a Card */}
-          {/* Contact Info Card */}
+         
 <div className="bg-black/80 backdrop-blur-sm p-6 rounded-lg max-w-md mx-auto mb-10 border border-gray-800">
   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
     <div className="min-w-[120px]">

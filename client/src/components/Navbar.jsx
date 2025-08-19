@@ -9,12 +9,12 @@ export default function Navbar() {
     <nav className="fixed w-full bg-black/30 backdrop-blur-sm border-b border-gray-800/50 z-50">
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          {/* Logo - Kept your original styling */}
+         
           <Link to="/" className="text-2xl font-bold text-white">
             INK STUDIO RANKO
           </Link>
 
-          {/* Desktop Navigation - Enhanced hover effects */}
+          {/* kod za dekstop */}
           <div className="hidden md:flex space-x-8">
             <Link 
               to="/" 
@@ -34,15 +34,10 @@ export default function Navbar() {
             >
               Zakaži termin
             </Link>
-            <Link 
-              to="/contact" 
-              className="text-white hover:text-red-400 transition-colors"
-            >
-              Kontakt
-            </Link>
+            
           </div>
 
-          {/* Mobile Menu Button - Same as your original */}
+         {/* kod za mobilne uredjaje */}
           <button 
             className="md:hidden p-2 text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -55,7 +50,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu - Improved styling */}
+        {/* mobilni meni */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-black/95 mt-4 rounded-lg py-2">
             <div className="flex flex-col space-y-3 px-4">
@@ -78,15 +73,9 @@ export default function Navbar() {
                 className="text-white py-3 border-b border-gray-800 hover:text-red-400 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Booking
+                Zakaži termin
               </Link>
-              <Link 
-                to="/contact" 
-                className="text-white py-3 hover:text-red-400 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
+              
             </div>
           </div>
         )}
