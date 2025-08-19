@@ -1,27 +1,39 @@
 import { useState } from 'react';
 import { ArrowLeftIcon, ArrowRightIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import tet1 from '../tattoos/tet1.JPG';
+import tet2 from '../tattoos/tet2.JPG';
+import tet3 from '../tattoos/tet3.JPG';
+import tet4 from '../tattoos/tet4.jpg';
+import tet5 from '../tattoos/tet5.JPG';
+import tet6 from '../tattoos/tet6.JPG';
+import tet7 from '../tattoos/tet7.JPG';
+import tet8 from '../tattoos/tet8.JPG';
+import tet9 from '../tattoos/tet9.jpg';
+import tet10 from '../tattoos/tet10.JPG';
+import tet11 from '../tattoos/tet11.JPG';
+import tet12 from '../tattoos/tet12.JPG';
+import tet13 from '../tattoos/tet13.JPG';
+import tet14 from '../tattoos/tet14.JPG';
+import tet15 from '../tattoos/tet15.JPG';
 
 const Gallery = () => {
   const [selectedImg, setSelectedImg] = useState(null);
-  
-  // Sample tattoo images - replace with your actual images
   const tattooImages = [
-    { id: 1, src: '/tattoos/tet1.jpg', category: 'Sleeves' },
-    { id: 2, src: '/tattoos/tet2.jpg', category: 'Blackwork' },
-    { id: 3, src: '/tattoos/tet3.jpg', category: 'Realism' },
-    { id: 4, src: '/tattoos/tet4.jpg', category: 'Minimalist' },
-    { id: 5, src: '/tattoos/tet4.jpg', category: 'Geometric' },
-    { id: 6, src: '/tattoos/tet5.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet6.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet7.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet8.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet9.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet10.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet11.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet12.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet13.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet14.jpg', category: 'Watercolor' },
-    { id: 6, src: '/tattoos/tet15.jpg', category: 'Watercolor' },
+    { id: 1, src: tet1, category: 'Sleeves' },
+    { id: 2, src: tet2, category: 'Blackwork' },
+    { id: 3, src: tet3, category: 'Realism' },
+    { id: 4, src: tet4, category: 'Minimalist' },
+    { id: 5, src: tet5, category: 'Geometric' },
+    { id: 6, src: tet6, category: 'Watercolor' },
+    { id: 7, src: tet7, category: 'Sleeves' },
+    { id: 8, src: tet8, category: 'Blackwork' },
+    { id: 9, src: tet9, category: 'Realism' },
+    { id: 10, src: tet10, category: 'Minimalist' },
+    { id: 11, src: tet11, category: 'Geometric' },
+    { id: 12, src: tet12, category: 'Watercolor' },
+    { id: 13, src: tet13, category: 'Watercolor' },
+    { id: 14, src: tet14, category: 'Watercolor' },
+    { id: 15, src: tet15, category: 'Watercolor' },
   ];
 
   return (
@@ -29,9 +41,6 @@ const Gallery = () => {
       {/* Gallery Header */}
       <div className="max-w-7xl mx-auto text-center mb-12">
         <h2 className="text-4xl font-bold text-white mb-4">Naši Radovi</h2>
-        <p className="text-xl text-gray-300">
-          Pogledajte naše najbolje tetovaže - svaka priča je jedinstvena
-        </p>
       </div>
 
       {/* Filter Buttons */}
@@ -52,12 +61,17 @@ const Gallery = () => {
           <div 
             key={img.id} 
             className="group relative overflow-hidden rounded-xl aspect-square cursor-pointer"
+             style={{ minHeight: "300px" }}
             onClick={() => setSelectedImg(img)}
           >
             <img
               src={img.src}
               alt={`Tattoo ${img.id}`}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onError={(e) => {
+          console.error('Failed to load:', img.src);
+        e.target.style.display = 'none'; 
+        }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
               <span className="text-white font-medium text-lg">{img.category}</span>
