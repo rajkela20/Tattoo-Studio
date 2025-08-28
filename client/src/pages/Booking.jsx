@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { isPast, isWeekend, parseISO } from 'date-fns';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebase'
-import Navbar from '../components/Navbar'; 
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '../firebase';
+import { db } from '../firebase';
+import Navbar from '../components/Navbar';
 
 const BookingPage = () => {
   const [formData, setFormData] = useState({
@@ -15,14 +13,12 @@ const BookingPage = () => {
     time: '',
     tattooStyle: '',
     description: '',
-    status: 'pending',
-    referenceImage: null
+    status: 'pending'
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [errors, setErrors] = useState({});
-  const [imagePreview, setImagePreview] = useState(null);
 
   const tattooStyles = [
     'Traditional',
@@ -48,46 +44,26 @@ const BookingPage = () => {
     }
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Validate file type
-      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-      if (!validTypes.includes(file.type)) {
-        setErrors(prev => ({ ...prev, referenceImage: 'Please upload an image file (JPEG, PNG, GIF, WEBP)' }));
-        return;
-      }
-
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        setErrors(prev => ({ ...prev, referenceImage: 'Image must be less than 5MB' }));
-        return;
-      }
-
-      setFormData(prev => ({ ...prev, referenceImage: file }));
-      setErrors(prev => ({ ...prev, referenceImage: '' }));
-
-      // Create preview
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const removeImage = () => {
-    setFormData(prev => ({ ...prev, referenceImage: null }));
-    setImagePreview(null);
-    setErrors(prev => ({ ...prev, referenceImage: '' }));
-  };
-
   const validateDate = (dateString) => {
     if (!dateString) return 'Date is required';
     
     const date = parseISO(dateString);
     if (isPast(date)) return 'Cannot select past dates';
     if (isWeekend(date)) return 'We are closed on weekends';
+    
+    return '';
+  };
+
+  const validateTime = (timeString) => {
+    if (!timeString) return 'Time is required';
+    
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const timeValue = hours * 60 + minutes;
+    
+
+    if (timeValue < 600 || timeValue > 1320) {
+      return 'Molimo vas izaberite vreme između 10:00 - 22:00';
+    }
     
     return '';
   };
@@ -102,7 +78,9 @@ const BookingPage = () => {
     const dateError = validateDate(formData.date);
     if (dateError) newErrors.date = dateError;
     
-    if (!formData.time) newErrors.time = 'Time is required';
+    const timeError = validateTime(formData.time);
+    if (timeError) newErrors.time = timeError;
+    
     if (!formData.tattooStyle) newErrors.tattooStyle = 'Style is required';
     if (!formData.description.trim()) newErrors.description = 'Description is required';
     
@@ -116,17 +94,9 @@ const BookingPage = () => {
     if (!validateForm()) return;
     
     setIsSubmitting(true);
+    setErrors({});
     
     try {
-      let imageUrl = '';
-      
-      // Upload image if provided
-      if (formData.referenceImage) {
-        const imageRef = ref(storage, `reference-images/${Date.now()}_${formData.referenceImage.name}`);
-        const snapshot = await uploadBytes(imageRef, formData.referenceImage);
-        imageUrl = await getDownloadURL(snapshot.ref);
-      }
-
       // Save to Firestore
       await addDoc(collection(db, "appointments"), {
         clientName: formData.clientName,
@@ -136,7 +106,6 @@ const BookingPage = () => {
         time: formData.time,
         tattooStyle: formData.tattooStyle,
         description: formData.description,
-        referenceImage: imageUrl,
         status: 'pending',
         createdAt: new Date()
       });
@@ -150,10 +119,8 @@ const BookingPage = () => {
         time: '',
         tattooStyle: '',
         description: '',
-        status: 'pending',
-        referenceImage: null
+        status: 'pending'
       });
-      setImagePreview(null);
     } catch (error) {
       console.error("Error saving booking:", error);
       setErrors({ 
@@ -167,7 +134,6 @@ const BookingPage = () => {
   if (submitSuccess) {
     return (
       <div className="min-h-screen bg-gray-950 py-16 px-4">
-        <Navbar />
         <div className="pt-20 pb-10">
           <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md text-center">
             <div className="text-green-600 text-2xl font-bold mb-4">Uspešno ste zakazali termin!</div>
@@ -186,7 +152,7 @@ const BookingPage = () => {
     );
   }
 
-   return (
+  return (
     <div className="min-h-screen bg-gray-950">
       <Navbar />
       <div className="pt-20 pb-10"> 
@@ -294,7 +260,7 @@ const BookingPage = () => {
               
               <div>
                 <label htmlFor="time" className="block text-sm font-medium text-gray-700 mb-1">
-                  Izaberite vreme
+                  Izaberite vreme (10:00 - 22:00)
                 </label>
                 <input
                   type="time"
@@ -302,11 +268,19 @@ const BookingPage = () => {
                   name="time"
                   value={formData.time}
                   onChange={handleChange}
+                  onBlur={() => {
+                    if (formData.time) {
+                      const timeError = validateTime(formData.time);
+                      setErrors(prev => ({ ...prev, time: timeError }));
+                    }
+                  }}
+                  min="10:00"
+                  max="22:00"
                   className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
                     errors.time 
                       ? 'border-red-500 focus:ring-red-500' 
                       : 'border-gray-300 focus:ring-black'
-                  }`}
+                }`}
                 />
                 {errors.time && (
                   <p className="mt-1 text-sm text-red-600">{errors.time}</p>
@@ -360,60 +334,6 @@ const BookingPage = () => {
                 <p className="mt-1 text-sm text-red-600">{errors.description}</p>
               )}
             </div>
-
-            <div>
-              <label htmlFor="referenceImage" className="block text-sm font-medium text-gray-700 mb-1">
-                Referentna slika (opciono)
-              </label>
-              <div className="border-2 border-dashed border-gray-300 rounded-md p-4 text-center">
-                {!imagePreview ? (
-                  <div>
-                    <input
-                      type="file"
-                      id="referenceImage"
-                      name="referenceImage"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="referenceImage"
-                      className="cursor-pointer text-blue-600 hover:text-blue-800"
-                    >
-                      <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      <p className="mt-1 text-sm text-gray-600">
-                        Kliknite za upload slike ili prevucite ovde
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        PNG, JPG, GIF do 5MB
-                      </p>
-                    </label>
-                  </div>
-                ) : (
-                  <div className="relative">
-                    <img
-                      src={imagePreview}
-                      alt="Preview"
-                      className="mx-auto max-h-48 rounded-md"
-                    />
-                    <button
-                      type="button"
-                      onClick={removeImage}
-                      className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 hover:bg-red-700"
-                    >
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  </div>
-                )}
-              </div>
-              {errors.referenceImage && (
-                <p className="mt-1 text-sm text-red-600">{errors.referenceImage}</p>
-              )}
-            </div>
             
             <button
               type="submit"
@@ -430,7 +350,7 @@ const BookingPage = () => {
                   </svg>
                   Processing...
                 </span>
-              ) : 'Book Appointment'}
+              ) : 'Zakaži termin'}
             </button>
           </form>
         </div>

@@ -106,7 +106,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-6">Spremni za novu tetovažu?</h2>
           <p className="text-xl mb-8">
-              Zakažite konsultaciju već danas.
+              Zakažite termin već danas.
           </p>
           <a 
             href="/booking" 
@@ -116,6 +116,24 @@ export default function Home() {
           </a>
         </div>
       </section>
+     <footer className="bg-gray-900 text-white py-8 px-4 border-t border-gray-700">
+  <div className="max-w-7xl mx-auto text-center">
+    <p className="text-gray-400">
+      © {new Date().getFullYear()} Ink Studio Ranko. All Rights Reserved.
+    </p>
+    <p className="text-gray-400 mt-2">
+      Designed & developed by:{" "}
+      <a 
+        href='https://enchanting-kitten-0fdd16.netlify.app/' 
+        className="text-red-500 hover:text-red-300 transition-colors duration-200"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Dušan
+      </a>
+    </p>
+  </div>
+</footer>
     </div>
   );
 }
